@@ -46,10 +46,7 @@ cp api_count.json.temp api_count.json
    5. Click **Create**. A note appears, warning that this service account has no role.
    6. Click **Create without role**. A JSON file that contains your key downloads to your device.
 5. Rename downloaded file to `credentials.json` and copy it to `MMM-GoogleTTS` directory
-6. do this command
-```sh
-export GOOGLE_APPLICATION_CREDENTIALS="~/MagicMirror/modules/MMM-GoogleTTS/credentials.json"
-```
+
 
 
 ## Configuration
@@ -160,3 +157,7 @@ this.sendNotification("TTS_SAY", {
   }
 })
 ```
+
+### By MMM-TelegramBot
+- `/say something` or `/alert something`
+- By Example : `/say Mom, I'm Tom, coming home now. I'm so hungry`
