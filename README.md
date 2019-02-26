@@ -19,6 +19,7 @@ cd ~/MagicMirror/modules
 git clone https://github.com/eouia/MMM-GoogleTTS
 npm install
 ./node_modules/.bin/electron-rebuild
+cp ./MMM-GoogleTTS/api_count.json.temp ./MMM-GoogleTTS/api_count.json
 ```
 
 ## Getting Google Credential
