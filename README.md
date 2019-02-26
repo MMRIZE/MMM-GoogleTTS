@@ -8,7 +8,7 @@ This module works on Background, so there is no screenshot.
 This module gives "voice" to MagicMirror
 - speech by notification order
 - hooking other notification data to speak. (e.g: SHOW_ALERT)
-- speech by `MMM-TelegramBot` command `/say`
+- speech by `MMM-TelegramBot` command `/tts`
 - welcomeMessage
 - preventing over-used API quota by daily limitation.
 
@@ -159,5 +159,5 @@ this.sendNotification("TTS_SAY", {
 ```
 
 ### By MMM-TelegramBot
-- `/say something` or `/alert something`
-- By Example : `/say Mom, I'm Tom, coming home now. I'm so hungry`
+- `/tts something` or `/alert something`
+- By Example : `/tts Mom, I'm Tom, coming home now. I'm so hungry`
