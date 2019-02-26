@@ -161,3 +161,8 @@ this.sendNotification("TTS_SAY", {
 ### By MMM-TelegramBot
 - `/tts something` or `/alert something`
 - By Example : `/tts Mom, I'm Tom, coming home now. I'm so hungry`
+
+## Memo
+- Google Text-To-Speech SDK is limited free. 4 Millions characters could be used per month without charge. I think it’s quiet enough for usual usage. You can limit daily usage by force with configuration to avoid charging. (But it’s your responsibility)
+
+- If you are using another module or program which use speaker, use this carefully. Occupation collision could happen.
