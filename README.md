@@ -25,26 +25,26 @@ cp api_count.json.temp api_count.json
 
 ## Getting Google Credential
 1. Select or create a Cloud Platform project.
-  - [Go to the projects page](https://console.cloud.google.com/project)
+   - [Go to the projects page](https://console.cloud.google.com/project)
 
 2. Enable billing for your project.
-  - [Pricing](https://cloud.google.com/text-to-speech/pricing)
-  - [Enable billing](https://support.google.com/cloud/answer/6293499#enable-billing)
-  - By default 4 Millions(for standard voice, 1 Million for `WaveNet` voice) characters could be used per month.
-  - Usually 4 Millions characters seems enough to be used for normal usage per month.
-  - You can limit daily usage by configuration if you don't want to pay for this service.
+   - [Pricing Information](https://cloud.google.com/text-to-speech/pricing)
+   - [Enable billing](https://support.google.com/cloud/answer/6293499#enable-billing)
+   - By default 4 Millions(for standard voice, 1 Million for `WaveNet` voice) characters could be used per month.
+   - Usually 4 Millions characters seems enough to be used for normal usage per month.
+   - You can limit daily usage by configuration if you don't want to pay for this service.
 
 3. Enable the Google Cloud Text-to-Speech API.
-  - [Enable the API](https://console.cloud.google.com/flows/enableapi?apiid=texttospeech.googleapis.com)
+   - [Enable the API](https://console.cloud.google.com/flows/enableapi?apiid=texttospeech.googleapis.com)
 
 4. Set up authentication with a service account so you can access the API from your device.
-  1. In the GCP Console, go to the Create service account key page.
-     [Create Service Account Key](https://console.cloud.google.com/apis/credentials/serviceaccountkey)
-  2. From the **Service account** drop-down list, select **New service account**.
-  3. In the **Service account name** field, enter a name(whatever)
-  4. Don't select a value from the **Role** drop-down list. No role is required to access this service.
-  5. Click **Create**. A note appears, warning that this service account has no role.
-  6. Click **Create without role**. A JSON file that contains your key downloads to your device.
+   1. In the GCP Console, go to the Create service account key page.
+       - [Create Service Account Key](https://console.cloud.google.com/apis/credentials/serviceaccountkey)
+   2. From the **Service account** drop-down list, select **New service account**.
+   3. In the **Service account name** field, enter a name(whatever)
+   4. Don't select a value from the **Role** drop-down list. No role is required to access this service.
+   5. Click **Create**. A note appears, warning that this service account has no role.
+   6. Click **Create without role**. A JSON file that contains your key downloads to your device.
 5. Rename downloaded file to `credentials.json` and copy it to `MMM-GoogleTTS` directory
 6. do this command
 ```sh
