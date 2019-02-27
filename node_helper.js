@@ -95,6 +95,7 @@ module.exports = NodeHelper.create({
         this.count = this.count + obj.content.length
         quota[this.today] = this.count
       } else {
+        this.today == moment().format("YYYYMMDD")
         quota[this.today] = obj.content.length
       }
 
