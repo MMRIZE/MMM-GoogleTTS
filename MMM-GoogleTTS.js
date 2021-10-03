@@ -88,7 +88,7 @@ Module.register("MMM-GoogleTTS", {
         content = welcome
       }
       console.log(content)
-      this.say({content:content})
+      this.say({ content })
     }
   },
 

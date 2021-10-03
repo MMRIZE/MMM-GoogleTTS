@@ -5,22 +5,26 @@
 'use strict'
 
 const fs = require('fs')
-const moment = require("moment")
 const path = require('path')
 const exec = require('child_process').exec
 const textToSpeech = require('@google-cloud/text-to-speech')
 
 
 var NodeHelper = require("node_helper")
+const getToday = () => {
+  let date = new Date()
+  return date.getFullYear() + String(date.getMonth() + 1).padStart(2, '0') + String(date.getDate()).padStart(2, '0') 
+}
 
 module.exports = NodeHelper.create({
   start: function() {
     this.config = {}
     this.tmpFile = ""
     this.countFile = ""
-    this.today = moment().format("YYYYMMDD")
+    this.today = getToday()
     this.count = 0
     this.client = null
+    process.env.GOOGLE_APPLICATION_CREDENTIALS = path.resolve(__dirname, 'account.json')
   },
 
   initialize: function(config) {
@@ -60,7 +64,7 @@ module.exports = NodeHelper.create({
     if (obj.content) {
       if (this.config.dailyCharLimit <= this.count + obj.content.length) {
         console.log("[GGLTTS] Today's quota limited:", this.count, this.config.dailyCharLimit)
-        this.sendSocketNotification("SAY_LIMIT_ERROR", {obj:obj})
+        this.sendSocketNotification("SAY_LIMIT_ERROR", { obj })
         return
       }
     }
@@ -83,19 +87,19 @@ module.exports = NodeHelper.create({
 
     var command = this.config.playCommand.replace("%OUTPUTFILE%", this.tmpFile)
 
-    this.client.synthesizeSpeech(request, (err, response) => {
-      if (err) {
-        console.log("[GGLTTS] Synthesize Error:", err)
-        this.sendSocketNotification("SAY_ERROR", {obj:obj, error:err})
+    this.client.synthesizeSpeech(request, (error, response) => {
+      if (error) {
+        console.log("[GGLTTS] Synthesize Error:", error)
+        this.sendSocketNotification("SAY_ERROR", { obj, error })
         return
       }
 
       var quota = {}
-      if (this.today == moment().format("YYYYMMDD")) {
+      if (this.today === getToday()) {
         this.count = this.count + obj.content.length
         quota[this.today] = this.count
       } else {
-        this.today == moment().format("YYYYMMDD")
+        this.today = getToday()
         quota[this.today] = obj.content.length
       }
 
@@ -111,14 +115,14 @@ module.exports = NodeHelper.create({
       fs.writeFile(this.tmpFile, response.audioContent, 'binary', (e) => {
         if (e) {
           console.log("[GGLTTS] File Error:", e)
-          this.sendSocketNotification("SAY_ERROR", {obj:obj, error:e})
+          this.sendSocketNotification("SAY_ERROR", { obj, error:e })
           return
         }
         this.sendSocketNotification("SAY_STARTING")
         exec(command, (er)=>{
           if (er) {
             console.log("[GGLTTS] Playing Sound Error:", er)
-            this.sendSocketNotification("SAY_ERROR", {obj:obj, error:er})
+            this.sendSocketNotification("SAY_ERROR", { obj, error:er })
           }
           fs.unlink(this.tmpFile, ()=>{
             this.sendSocketNotification("SAY_ENDING", obj)
