@@ -172,3 +172,9 @@ this.sendNotification("TTS_SAY", {
 - Google Text-To-Speech SDK is limited free. 4 Millions characters could be used per month without charge. I think it’s quiet enough for usual usage. You can limit daily usage by force with configuration to avoid charging. (But it’s your responsibility)
 
 - If you are using another module or program which use speaker, use this carefully. Occupation collision could happen.
+
+## Author
+- Seongnoh Yi (eouia0819@gmail.com)
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y56IFLK)
+
