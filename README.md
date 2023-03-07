@@ -2,6 +2,8 @@
 Text-to-Speech module for MagicMirror with Google Cloud TTS API.
 
 ## Update History
+### **`1.1.1`** - 2023.03.07
+- FIXED : Bug in the payload of notification
 ### **`1.1.0`** - 2021.10.03
 - Repository revived. (eouia/MMM-GoogleTTS => MMRIZE/MMM-GoogleTTS)
 - Drop out `moment` dependency.

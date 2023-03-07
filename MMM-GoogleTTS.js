@@ -65,6 +65,8 @@ Module.register("MMM-GoogleTTS", {
       var req = {}
       if (typeof payload == "string") {
         req.content = payload
+      } else if (typeof payload === 'object') {
+        req = {...payload}
       }
       if (payload.hasOwnProperty("callback")) {
         var cbKey = sender.name + Date.now()
