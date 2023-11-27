@@ -1,6 +1,6 @@
 # MMM-GoogleTTS
 
-Text-to-Speech module for MagicMirror with Google Cloud TTS API.
+Text-to-Speech module for MagicMirror² with Google Cloud TTS API.
 
 ## Update History
 
@@ -20,7 +20,7 @@ This module works on Background, so there is no screenshot.
 
 ## Features
 
-This module gives "voice" to MagicMirror
+This module gives "voice" to MagicMirror²
 
 - speech by notification order
 - hooking other notification data to speak. (e.g: SHOW_ALERT)
