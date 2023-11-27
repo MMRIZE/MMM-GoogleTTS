@@ -1,6 +1,6 @@
 # MMM-GoogleTTS
 
-Text-to-Speech module for MagicMirror² with Google Cloud TTS API.
+Text-to-Speech module for [MagicMirror²](https://magicmirror.builders/) with Google Cloud TTS API.
 
 ## Update History
 
