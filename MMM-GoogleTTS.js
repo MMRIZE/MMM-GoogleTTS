@@ -17,20 +17,17 @@ Module.register("MMM-GoogleTTS", {
     // supported voices, languages and gender;
     // https://cloud.google.com/text-to-speech/docs/voices
 
-
     playCommand: "aplay %OUTPUTFILE%", // aplay, mpg321, afplay, as your wish....
     // sometimes you should give more options to play correctly.
     // e.g) "aplay -D plughw:1,0 $OUTPUTFILE%"
     audioEncoding: "LINEAR16", // LINEAR16 (.wav) or MP3 (.mp3) for playCommand
 
-
     notificationTrigger: {
-      "TEST_TTS": "Test TTS notification is coming",
-      "SHOW_ALERT": (payload, sender) => {
+      TEST_TTS: "Test TTS notification is coming",
+      SHOW_ALERT: (payload, sender) => {
         return payload.message
-      },
+      }
     },
-
 
     // You don't need to modify belows;
     notifications: {
@@ -57,15 +54,15 @@ Module.register("MMM-GoogleTTS", {
   notificationReceived: function(noti, payload, sender) {
     if (this.config.notificationTrigger.hasOwnProperty(noti)) {
       var n = this.config.notificationTrigger[noti]
-      var result = (typeof n == "function") ? n(payload, sender) : n
+      var result = (typeof n === "function") ? n(payload, sender) : n
       this.say({content:result})
     }
 
-    if (noti == "TTS_SAY") {
+    if (noti === "TTS_SAY") {
       var req = {}
-      if (typeof payload == "string") {
+      if (typeof payload === "string") {
         req.content = payload
-      } else if (typeof payload === 'object') {
+      } else if (typeof payload === "object") {
         req = {...payload}
       }
       if (payload.hasOwnProperty("callback")) {
@@ -77,11 +74,11 @@ Module.register("MMM-GoogleTTS", {
       this.say(req)
     }
 
-    if (noti == "DOM_OBJECTS_CREATED") {
+    if (noti === "DOM_OBJECTS_CREATED") {
       if (!this.config.welcome) {
         return
       }
-      var welcome = (typeof this.config.welcome == "function") ? this.config.welcome() : this.config.welcome
+      var welcome = (typeof this.config.welcome === "function") ? this.config.welcome() : this.config.welcome
 
       var content = ""
       if (Array.isArray(welcome)) {
@@ -102,7 +99,7 @@ Module.register("MMM-GoogleTTS", {
       case "SAY_ENDING":
         if (payload["callbackKey"]) {
           this.callback[payload.callbackKey]()
-          this.callback[payload.callbackKey] == null
+          this.callback[payload.callbackKey] === null
           delete(this.callback[payload.callbackKey])
         }
         this.sendNotification(this.config.notifications.TTS_SAY_ENDING)
@@ -112,7 +109,7 @@ Module.register("MMM-GoogleTTS", {
       case "SAY_ERROR":
         if (payload.obj["callbackKey"]) {
           this.callback[payload.callbackKey](payload.error)
-          this.callback[payload.callbackKey] == null
+          this.callback[payload.callbackKey] === null
           delete(this.callback[payload.callbackKey])
         }
         this.sendNotification(this.config.notifications.TTS_SAY_ERROR)
@@ -124,9 +121,9 @@ Module.register("MMM-GoogleTTS", {
     if (handler.args) {
       this.say({content:handler.args})
       console.log(handler.args)
-      handler.reply("TEXT", "TTS speaking:" + handler.args)
+      handler.reply("TEXT", `TTS speaking: ${handler.args}`)
     } else {
-      handler.reply("TEXT", "Use `/tts something`", {parse_mode:'Markdown'})
+      handler.reply("TEXT", "Use `/tts something`", { parse_mode:"Markdown" });
     }
   },
 

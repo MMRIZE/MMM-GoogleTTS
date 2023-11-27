@@ -1,30 +1,38 @@
 # MMM-GoogleTTS
-Text-to-Speech module for MagicMirror with Google Cloud TTS API.
+
+Text-to-Speech module for [MagicMirror²](https://magicmirror.builders/) with Google Cloud TTS API.
 
 ## Update History
+
 ### **`1.1.1`** - 2023.03.07
+
 - FIXED : Bug in the payload of notification
+
 ### **`1.1.0`** - 2021.10.03
+
 - Repository revived. (eouia/MMM-GoogleTTS => MMRIZE/MMM-GoogleTTS)
 - Drop out `moment` dependency.
 - Some code typo fix.
 
 ## Screenshot
+
 This module works on Background, so there is no screenshot.
 
 ## Features
-This module gives "voice" to MagicMirror
+
+This module gives "voice" to MagicMirror²
+
 - speech by notification order
 - hooking other notification data to speak. (e.g: SHOW_ALERT)
 - speech by `MMM-TelegramBot` command `/tts`
 - welcomeMessage
 - preventing over-used API quota by daily limitation.
 
-
 ## Installation
+
 ```sh
 cd ~/MagicMirror/modules
-git clone https://github.com/eouia/MMM-GoogleTTS
+git clone https://github.com/MMRIZE/MMM-GoogleTTS
 cd MMM-GoogleTTS
 npm install
 ./node_modules/.bin/electron-rebuild
@@ -32,6 +40,7 @@ cp api_count.json.temp api_count.json
 ```
 
 ## Getting Google Credential
+
 1. Select or create a Cloud Platform project.
    - [Go to the projects page](https://console.cloud.google.com/project)
 
@@ -55,11 +64,10 @@ cp api_count.json.temp api_count.json
    6. Click **Create without role**. A JSON file that contains your key downloads to your device.
 5. Rename downloaded file to `credentials.json` and copy it to `MMM-GoogleTTS` directory
 
-
-
 ## Configuration
 
 ### Simple
+
 ```js
 {
   module: "MMM-GoogleTTS", // no `position` is needed.
@@ -68,6 +76,7 @@ cp api_count.json.temp api_count.json
 ```
 
 ### Details and Defaults
+
 ```js
 {
   module: "MMM-GoogleTTS", // no `position` is needed.
@@ -91,12 +100,12 @@ cp api_count.json.temp api_count.json
     // "text" or "ssml".
 
     voiceName: "en-US-Standard-C",
-    //If exists. e.g)"en-US-Standard-C". You can select specific voice name when there are many voices with same languageCode and gender.
+    // If exists. e.g)"en-US-Standard-C". You can select specific voice name when there are many voices with same languageCode and gender.
     // voiceName should be matched with languageCode and ssmlGender
 
     languageCode: "en-US",
     ssmlGender: "FEMALE",
-    //"MALE", "FEMALE", "NEUTRAL" or "SSML_VOICE_GENDER_UNSPECIFIED"
+    // "MALE", "FEMALE", "NEUTRAL" or "SSML_VOICE_GENDER_UNSPECIFIED"
     // supported voices, languages and gender;
     // https://cloud.google.com/text-to-speech/docs/voices
 
@@ -130,10 +139,14 @@ cp api_count.json.temp api_count.json
 ```
 
 ## Usage
+
 ### By Notification
+
 #### notification hooking
+
 You can hook specific notification to speak something with that notification.
 By example;
+
 ```js
 notificationTrigger: {
   "TEST_TTS" : "Test TTS notification is coming",
@@ -142,16 +155,20 @@ notificationTrigger: {
   },
 },
 ```
+
 - When `TEST_TTS` notification is received, "Test TTS notification is coming" will be spoken.
 - When `SHOW_ALERT` notification is received, `payload.message` will be spoken. You can make Mirror to read `ALERT` by its voice.
 
 #### notification command
+
 With `TTS_SAY` notification, Other module can order this module to speak
+
 ```js
 this.sendNotification("TTS_SAY", "May the Force be with you")
 ```
 
 Or,
+
 ```js
 this.sendNotification("TTS_SAY", {
   content: "Live long and prosper", //text to be spoken
@@ -167,16 +184,18 @@ this.sendNotification("TTS_SAY", {
 ```
 
 ### By MMM-TelegramBot
+
 - `/tts something` or `/alert something`
 - By Example : `/tts Mom, I'm Tom, coming home now. I'm so hungry`
 
 ## Memo
+
 - Google Text-To-Speech SDK is limited free. 4 Millions characters could be used per month without charge. I think it’s quiet enough for usual usage. You can limit daily usage by force with configuration to avoid charging. (But it’s your responsibility)
 
 - If you are using another module or program which use speaker, use this carefully. Occupation collision could happen.
 
 ## Author
-- Seongnoh Yi (eouia0819@gmail.com)
+
+- Seongnoh Yi (<eouia0819@gmail.com>)
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y56IFLK)
-
