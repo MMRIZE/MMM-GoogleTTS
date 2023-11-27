@@ -2,18 +2,18 @@
 // Module : MMM-GoogleTTS
 //
 
-'use strict'
+"use strict"
 
-const fs = require('fs')
-const path = require('path')
-const exec = require('child_process').exec
-const textToSpeech = require('@google-cloud/text-to-speech')
+const fs = require("fs")
+const path = require("path")
+const exec = require("child_process").exec
+const textToSpeech = require("@google-cloud/text-to-speech")
 
+const NodeHelper = require("node_helper")
 
-var NodeHelper = require("node_helper")
 const getToday = () => {
   let date = new Date()
-  return date.getFullYear() + String(date.getMonth() + 1).padStart(2, '0') + String(date.getDate()).padStart(2, '0') 
+  return date.getFullYear() + String(date.getMonth() + 1).padStart(2, "0") + String(date.getDate()).padStart(2, "0") 
 }
 
 module.exports = NodeHelper.create({
@@ -24,7 +24,7 @@ module.exports = NodeHelper.create({
     this.today = getToday()
     this.count = 0
     this.client = null
-    process.env.GOOGLE_APPLICATION_CREDENTIALS = path.resolve(__dirname, 'account.json')
+    process.env.GOOGLE_APPLICATION_CREDENTIALS = path.resolve(__dirname, "account.json")
   },
 
   initialize: function(config) {
@@ -41,7 +41,7 @@ module.exports = NodeHelper.create({
     } else {
       var data = {}
       data[this.today] = this.count
-      fs.writeFile(this.countFile, JSON.stringify(data), 'utf8', ()=>{
+      fs.writeFile(this.countFile, JSON.stringify(data), "utf8", ()=>{
         console.log("[GGLTTS] Today's quota initialized")
       })
     }
@@ -58,8 +58,6 @@ module.exports = NodeHelper.create({
     }
   },
 
-
-
   say: function(obj) {
     if (obj.content) {
       if (this.config.dailyCharLimit <= this.count + obj.content.length) {
@@ -74,7 +72,7 @@ module.exports = NodeHelper.create({
       voice: {},
       audioConfig: {}
     }
-    if (obj.type == "text") {
+    if (obj.type === "text") {
       request.input.text = obj.content
     } else {
       request.input.ssml = obj.content
@@ -107,12 +105,11 @@ module.exports = NodeHelper.create({
         if (e) {
           console.log("[GGLTTS] Quota file write error:", e)
         } else {
-          console.log("[GGLTTS] Today's Quota Used:", this.count)
+          console.log("[GGLTTS] Today's quota used:", this.count)
         }
       })
 
-
-      fs.writeFile(this.tmpFile, response.audioContent, 'binary', (e) => {
+      fs.writeFile(this.tmpFile, response.audioContent, "binary", (e) => {
         if (e) {
           console.log("[GGLTTS] File Error:", e)
           this.sendSocketNotification("SAY_ERROR", { obj, error:e })
